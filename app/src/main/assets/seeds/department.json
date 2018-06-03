@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Food & Beverages",
+    "floor": 1
+  },
+  {
+    "name": "Clothes",
+    "floor": 2
+  },
+  {
+    "name": "Home Utilities",
+    "floor": 2
+  },
+  {
+    "name": "Electronics",
+    "floor": 1
+  },
+  {
+    "name": "Misc",
+    "floor": 2
+  }
+]

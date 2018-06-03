@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Sourabh",
+    "dept_id": 1,
+    "date_of_joining": "03-02-2012"
+  },
+  {
+    "name": "Suman",
+    "dept_id": 2,
+    "date_of_joining": "03-02-2012"
+  },
+  {
+    "name": "Kamal",
+    "dept_id": 2,
+    "date_of_joining": "03-02-2012"
+  },
+  {
+    "name": "Tanvi",
+    "dept_id": 2,
+    "date_of_joining": "03-02-2012"
+  },
+  {
+    "name": "Manish",
+    "dept_id": 1,
+    "date_of_joining": "03-02-2012"
+  },
+  {
+    "name": "Rohit",
+    "dept_id": 3,
+    "date_of_joining": "03-02-2012"
+  },
+  {
+    "name": "Sachin",
+    "dept_id": 3,
+    "date_of_joining": "03-02-2012"
+  },
+]

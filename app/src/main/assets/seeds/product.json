@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Dantkant Toothbrush",
+    "dept_id": 1,
+    "type": "MISC",
+    "quantity": 100
+  },
+  {
+    "name": "Steelseries Headphones",
+    "dept_id": 4,
+    "type": "ELECTRONIC",
+    "quantity": 100
+  },
+  {
+    "name": "McD Burger",
+    "dept_id": 1,
+    "type": "FOOD",
+    "quantity": 10
+  },
+  {
+    "name": "Cooker",
+    "dept_id": 4,
+    "type": "UTENSIL",
+    "quantity": 5
+  },
+  {
+    "name": "Jeans",
+    "dept_id": 2,
+    "type": "CLOTHES",
+    "quantity": 20
+  }
+]
