@@ -1,22 +1,42 @@
 [
   {
-    "name": "Food & Beverages",
+    "name": "Grocery",
     "floor": 1
   },
   {
-    "name": "Clothes",
+    "name": "Sports",
     "floor": 2
   },
   {
-    "name": "Home Utilities",
-    "floor": 2
+    "name": "Garden",
+    "floor": 3
+  },
+  {
+    "name": "Industrial",
+    "floor": 4
+  },
+  {
+    "name": "Automotive",
+    "floor": 5
   },
   {
     "name": "Electronics",
-    "floor": 1
+    "floor": 6
   },
   {
-    "name": "Misc",
-    "floor": 2
+    "name": "Games",
+    "floor": 7
+  },
+  {
+    "name": "Kids",
+    "floor": 8
+  },
+  {
+    "name": "Tools",
+    "floor": 9
+  },
+  {
+    "name": "Computers",
+    "floor": 10
   }
 ]
