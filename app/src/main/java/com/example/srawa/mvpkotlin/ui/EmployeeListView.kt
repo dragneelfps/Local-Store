@@ -8,10 +8,14 @@ interface EmployeeListView {
 
     fun hideProgress()
 
-    fun setItems(employees: List<Employee>)
+    fun setItems(employees: List<EmployeeDetail>)
 
     fun displayMessage(message: String)
 
     fun clearItems()
+
+    class EmployeeDetail(var employee: Employee) {
+        var deptName = "NOT SET"
+    }
 
 }

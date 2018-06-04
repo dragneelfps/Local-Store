@@ -1,10 +1,8 @@
 package com.example.srawa.mvpkotlin.ui
 
-import android.content.Context
 import com.example.srawa.mvpkotlin.database.AppDatabase
 import com.example.srawa.mvpkotlin.database.employee.EmployeeRepo
 import com.example.srawa.mvpkotlin.database.employee.EmployeeRepoImpl
-import com.example.srawa.mvpkotlin.util.DatabaseBuilder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -16,7 +14,26 @@ class EmployeeListPresenterImpl(
         mainView.clearItems()
         mainView.showProgress()
         val employeeRepo: EmployeeRepo = EmployeeRepoImpl(database.employeeDao())
-        employeeRepo.getEmployeesByName(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//        employeeRepo.getEmployeesByName(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                .subscribe {
+//                    mainView.setItems(employees = it)
+//                    mainView.hideProgress()
+//                }
+        employeeRepo.getEmployeesByName(name).map {
+            val empDetails = ArrayList<EmployeeListView.EmployeeDetail>()
+            it.forEach { emp ->
+                val deptId = emp.deptID
+                val empDetail = EmployeeListView.EmployeeDetail(emp)
+                val depts = database.departmentDao().getDepartmentById(deptId)
+                if (depts.isEmpty()) {
+                    empDetail.deptName = "INVALID"
+                } else {
+                    empDetail.deptName = depts[0].name
+                }
+                empDetails.add(empDetail)
+            }
+            empDetails
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     mainView.setItems(employees = it)
                     mainView.hideProgress()

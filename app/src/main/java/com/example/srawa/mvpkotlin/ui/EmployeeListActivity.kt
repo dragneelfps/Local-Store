@@ -1,14 +1,15 @@
 package com.example.srawa.mvpkotlin.ui
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.example.srawa.mvpkotlin.R
 import com.example.srawa.mvpkotlin.adapters.EmployeeListAdapter
 import com.example.srawa.mvpkotlin.database.AppDatabase
-import com.example.srawa.mvpkotlin.database.employee.Employee
 import com.example.srawa.mvpkotlin.util.DatabaseBuilder
 import com.example.srawa.mvpkotlin.util.PerferenceHelper
 import kotlinx.android.synthetic.main.activity_employee_list.*
@@ -24,7 +25,6 @@ class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_employee_list)
-
         mDatabase = DatabaseBuilder.getDatabase(applicationContext)
 
         if(PerferenceHelper.isDbInitialized(this)){
@@ -47,9 +47,14 @@ class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
         employee_list.layoutManager = LinearLayoutManager(this)
         employee_list.adapter = employeeListAdapter
         search_emp_btn.setOnClickListener {
+            hideSoftKeyboard()
             val searchName = emp_name_search_term.text.toString()
             presenter.searchEmployeesByName(mDatabase, searchName)
         }
+    }
+
+    fun hideSoftKeyboard() {
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(currentFocus.windowToken, 0)
     }
 
     override fun showProgress() {
@@ -60,7 +65,7 @@ class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
         progressBar.visibility = View.GONE
     }
 
-    override fun setItems(employees: List<Employee>) {
+    override fun setItems(employees: List<EmployeeListView.EmployeeDetail>) {
         employeeListAdapter.values = employees
     }
 
