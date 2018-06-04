@@ -12,4 +12,6 @@ interface EmployeeListView {
 
     fun displayMessage(message: String)
 
+    fun clearItems()
+
 }

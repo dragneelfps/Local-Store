@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.example.srawa.mvpkotlin.R
 import com.example.srawa.mvpkotlin.adapters.EmployeeListAdapter
 import com.example.srawa.mvpkotlin.database.AppDatabase
@@ -52,18 +53,23 @@ class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
     }
 
     override fun showProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar.visibility = View.GONE
     }
 
     override fun setItems(employees: List<Employee>) {
         employeeListAdapter.values = employees
     }
 
+    override fun clearItems() {
+        employeeListAdapter.values = emptyList()
+    }
+
     override fun displayMessage(message: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 }

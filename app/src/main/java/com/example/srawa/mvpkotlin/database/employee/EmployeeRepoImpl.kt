@@ -18,6 +18,7 @@ class EmployeeRepoImpl(var employeeDao: EmployeeDao): EmployeeRepo {
 
     override fun getEmployeesByName(name: String): Observable<List<Employee>> =
         Observable.fromCallable {
+            Thread.sleep(5000)
             employeeDao.getEmployeesByName(name)
         }
 
