@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("xyz",it.toString())
             }
         }
-
     }
 
     override fun onDestroy() {
