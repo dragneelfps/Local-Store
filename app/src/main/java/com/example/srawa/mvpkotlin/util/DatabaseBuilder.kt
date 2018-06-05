@@ -3,6 +3,7 @@ package com.example.srawa.mvpkotlin.util
 import android.arch.persistence.room.Room
 import android.content.Context
 import android.os.AsyncTask
+import android.util.Log
 import com.beust.klaxon.Klaxon
 import com.example.srawa.mvpkotlin.database.AppDatabase
 import com.example.srawa.mvpkotlin.database.department.Department
@@ -15,7 +16,6 @@ import com.example.srawa.mvpkotlin.database.util.klaxon.KlaxonDateType
 import com.example.srawa.mvpkotlin.database.util.klaxon.KlaxonDateTypeConverter
 import com.example.srawa.mvpkotlin.database.util.klaxon.KlaxonProductType
 import com.example.srawa.mvpkotlin.database.util.klaxon.KlaxonProductTypeConverter
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 object DatabaseBuilder{
@@ -29,10 +29,13 @@ object DatabaseBuilder{
     private lateinit var klaxon: Klaxon
 
     fun populateDatabase(context: Context, database: AppDatabase){
-        klaxon = Klaxon()
-        populateDepartments(context, database)
-        populateEmployees(context, database)
-        populateProduct(context, database)
+        AsyncTask.execute {
+            klaxon = Klaxon()
+            populateDepartments(context, database)
+            populateEmployees(context, database)
+            populateProduct(context, database)
+            Log.d("xyz", "DB INITIALIZED")
+        }
     }
 
     fun populateDepartments(context: Context, database: AppDatabase){

@@ -11,7 +11,7 @@ import com.example.srawa.mvpkotlin.database.product.Product
 import com.example.srawa.mvpkotlin.database.product.ProductDao
 import com.example.srawa.mvpkotlin.database.util.converters.RoomConverters
 
-@Database(entities = [(Department::class), (Employee::class), (Product::class)], version = 1)
+@Database(entities = [(Department::class), (Employee::class), (Product::class)], version = 1, exportSchema = false)
 @TypeConverters(RoomConverters::class)
 abstract class AppDatabase: RoomDatabase() {
 

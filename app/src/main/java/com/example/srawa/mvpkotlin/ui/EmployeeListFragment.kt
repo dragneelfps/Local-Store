@@ -2,19 +2,18 @@ package com.example.srawa.mvpkotlin.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.example.srawa.mvpkotlin.R
 import com.example.srawa.mvpkotlin.adapters.EmployeeListAdapter
 import com.example.srawa.mvpkotlin.database.AppDatabase
 import com.example.srawa.mvpkotlin.util.DatabaseBuilder
-import com.example.srawa.mvpkotlin.util.PerferenceHelper
-import kotlinx.android.synthetic.main.activity_employee_list.*
+import kotlinx.android.synthetic.main.fragment_employee_list.*
 
-class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
+class EmployeeListFragment : android.support.v4.app.Fragment(), EmployeeListView {
 
     private lateinit var presenter: EmployeeListPresenter
 
@@ -22,29 +21,23 @@ class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
 
     private lateinit var mDatabase: AppDatabase
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_employee_list)
-        mDatabase = DatabaseBuilder.getDatabase(applicationContext)
-
-        if(PerferenceHelper.isDbInitialized(this)){
-            Log.d("xyz","DB IS ALREADY INITIALIZED")
-            init()
-        }else{
-            Log.d("xyz","INITIALIZING DB")
-            DatabaseBuilder.populateDatabase(applicationContext, mDatabase)
-            PerferenceHelper.dbInit(this)
-            init()
-        }
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_employee_list, container, false)
     }
 
-    fun init(){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        activity?.let { activity ->
+            mDatabase = DatabaseBuilder.getDatabase(activity.applicationContext)
+            init()
+        }
+    }
+
+    fun init() {
         employeeListAdapter = EmployeeListAdapter()
-
         presenter = EmployeeListPresenterImpl(this)
-
-        employee_list.layoutManager = LinearLayoutManager(this)
+        employee_list.layoutManager = LinearLayoutManager(activity?.applicationContext)
         employee_list.adapter = employeeListAdapter
         search_emp_btn.setOnClickListener {
             hideSoftKeyboard()
@@ -54,7 +47,7 @@ class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
     }
 
     fun hideSoftKeyboard() {
-        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(currentFocus.windowToken, 0)
+        (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
     override fun showProgress() {
@@ -66,15 +59,25 @@ class EmployeeListActivity : AppCompatActivity(), EmployeeListView {
     }
 
     override fun setItems(employees: List<EmployeeListView.EmployeeDetail>) {
+        val searchResultSize = employees.size
+        when (searchResultSize) {
+            0 -> {
+                displayMessage("No results found")
+            }
+            else -> {
+                displayMessage("$searchResultSize results found")
+            }
+        }
         employeeListAdapter.values = employees
     }
 
     override fun clearItems() {
+        displayMessage("")
         employeeListAdapter.values = emptyList()
     }
 
     override fun displayMessage(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        search_result.text = message
     }
 
 }

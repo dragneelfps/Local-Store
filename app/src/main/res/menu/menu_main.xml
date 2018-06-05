@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/employee_search_item"
+        android:title="Search Employee" />
+    <item
+        android:id="@+id/product_search_item"
+        android:title="Search Product" />
+    <item
+        android:id="@+id/departments_list_item"
+        android:title="List Departments" />
+</menu>
