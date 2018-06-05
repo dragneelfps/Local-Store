@@ -1,4 +1,4 @@
-package com.example.srawa.mvpkotlin.ui
+package com.example.srawa.mvpkotlin.ui.employee
 
 import com.example.srawa.mvpkotlin.database.AppDatabase
 import com.example.srawa.mvpkotlin.database.employee.EmployeeRepo
@@ -33,7 +33,7 @@ class EmployeeListPresenterImpl(
             empDetails
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    mainView.setItems(employees = it)
+                    mainView.setItems(items = it)
                     mainView.hideProgress()
                 }
     }

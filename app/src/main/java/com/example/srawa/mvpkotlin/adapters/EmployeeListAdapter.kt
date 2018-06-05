@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.srawa.mvpkotlin.R
-import com.example.srawa.mvpkotlin.ui.EmployeeListView
+import com.example.srawa.mvpkotlin.ui.employee.EmployeeListView
 import com.example.srawa.mvpkotlin.util.formatDate
 import kotlinx.android.synthetic.main.item_layout_employee.view.*
 
@@ -30,9 +30,12 @@ class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val employee = values[position].employee
-        holder.empNameTextView.text = employee.name
-        holder.empIdTextView.text = employee.id.toString()
-        holder.departmentIdTextView.text = values[position].deptName
-        holder.dateOfJoiningTextView.text = employee.dateOfJoining.formatDate()
+        holder.run {
+            empNameTextView.text = employee.name
+            empIdTextView.text = employee.id.toString()
+            departmentIdTextView.text = values[position].deptName
+            dateOfJoiningTextView.text = employee.dateOfJoining.formatDate()
+        }
+
     }
 }

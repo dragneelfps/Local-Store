@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.example.srawa.mvpkotlin.ui.EmployeeListFragment
+import com.example.srawa.mvpkotlin.ui.employee.EmployeeListFragment
+import com.example.srawa.mvpkotlin.ui.product.ProductListFragment
 import com.example.srawa.mvpkotlin.util.DatabaseBuilder
 import com.example.srawa.mvpkotlin.util.PerferenceHelper
 
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         when (item?.itemId) {
             R.id.employee_search_item ->
                 supportFragmentManager.beginTransaction().replace(R.id.frame_layout, EmployeeListFragment()).commit()
+            R.id.product_search_item ->
+                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, ProductListFragment()).commit()
             else ->
                 return false
         }

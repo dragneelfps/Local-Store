@@ -1,4 +1,4 @@
-package com.example.srawa.mvpkotlin.ui
+package com.example.srawa.mvpkotlin.ui.employee
 
 import android.content.Context
 import android.os.Bundle
@@ -37,11 +37,11 @@ class EmployeeListFragment : android.support.v4.app.Fragment(), EmployeeListView
     fun init() {
         employeeListAdapter = EmployeeListAdapter()
         presenter = EmployeeListPresenterImpl(this)
-        employee_list.layoutManager = LinearLayoutManager(activity?.applicationContext)
-        employee_list.adapter = employeeListAdapter
+        product_list.layoutManager = LinearLayoutManager(activity?.applicationContext)
+        product_list.adapter = employeeListAdapter
         search_emp_btn.setOnClickListener {
             hideSoftKeyboard()
-            val searchName = emp_name_search_term.text.toString()
+            val searchName = product_name_search_term.text.toString()
             presenter.searchEmployeesByName(mDatabase, searchName)
         }
     }
@@ -58,8 +58,8 @@ class EmployeeListFragment : android.support.v4.app.Fragment(), EmployeeListView
         progressBar.visibility = View.GONE
     }
 
-    override fun setItems(employees: List<EmployeeListView.EmployeeDetail>) {
-        val searchResultSize = employees.size
+    override fun setItems(items: List<EmployeeListView.EmployeeDetail>) {
+        val searchResultSize = items.size
         when (searchResultSize) {
             0 -> {
                 displayMessage("No results found")
@@ -68,7 +68,7 @@ class EmployeeListFragment : android.support.v4.app.Fragment(), EmployeeListView
                 displayMessage("$searchResultSize results found")
             }
         }
-        employeeListAdapter.values = employees
+        employeeListAdapter.values = items
     }
 
     override fun clearItems() {
