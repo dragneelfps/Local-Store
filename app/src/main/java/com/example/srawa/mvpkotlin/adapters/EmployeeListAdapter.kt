@@ -9,18 +9,12 @@ import com.example.srawa.mvpkotlin.ui.employee.EmployeeListView
 import com.example.srawa.mvpkotlin.util.formatDate
 import kotlinx.android.synthetic.main.item_layout_employee.view.*
 
-class EmployeeListAdapter: RecyclerView.Adapter<EmployeeListAdapter.ViewHolder>() {
+class EmployeeListAdapter : BaseAdapter<EmployeeListView.EmployeeDetail, EmployeeListAdapter.ViewHolder>() {
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val empNameTextView = itemView.emp_name
         val empIdTextView = itemView.emp_id
         val departmentIdTextView = itemView.dept_name
         val dateOfJoiningTextView = itemView.date_of_joining
-    }
-
-    var values = emptyList<EmployeeListView.EmployeeDetail>()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
     }
 
     override fun getItemCount() = values.size

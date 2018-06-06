@@ -20,13 +20,9 @@ class DepartmentRepoImpl(private val departmentDao: DepartmentDao): DepartmentRe
             emitter.onSuccess(noOfDepartments == 0)
         }
 
-    override fun getAllDepartments(): Observable<Department> =
-        Observable.create { emitter ->
-            val departments = departmentDao.getAllDepartments()
-            departments.forEach {
-                emitter.onNext(it)
-            }
-            emitter.onComplete()
+    override fun getAllDepartments(): Observable<List<Department>> =
+            Observable.fromCallable {
+                departmentDao.getAllDepartments()
         }
 
     override fun getDepartmentDetails(deptId: Long): Observable<DepartmentDetail> =

@@ -9,7 +9,7 @@ import com.example.srawa.mvpkotlin.R
 import com.example.srawa.mvpkotlin.database.product.Product
 import kotlinx.android.synthetic.main.item_layout_product.view.*
 
-class ProductListAdapter : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
+class ProductListAdapter : BaseAdapter<Product, ProductListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var productNameTextView: TextView = itemView.product_name
@@ -17,12 +17,6 @@ class ProductListAdapter : RecyclerView.Adapter<ProductListAdapter.ViewHolder>()
         var productIdTextView: TextView = itemView.product_id
         var productQuantityTextView: TextView = itemView.product_quantity
     }
-
-    var values = emptyList<Product>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     override fun getItemCount() = values.size
 

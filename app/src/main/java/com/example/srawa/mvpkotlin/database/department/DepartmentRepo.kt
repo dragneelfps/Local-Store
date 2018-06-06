@@ -10,7 +10,7 @@ interface DepartmentRepo {
 
     fun isDepartmentRepoEmpty(): Single<Boolean>
 
-    fun getAllDepartments(): Observable<Department>
+    fun getAllDepartments(): Observable<List<Department>>
 
     fun getDepartmentDetails(deptId: Long): Observable<DepartmentDetail>
 
