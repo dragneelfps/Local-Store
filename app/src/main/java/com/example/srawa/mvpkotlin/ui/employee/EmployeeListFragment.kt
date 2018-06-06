@@ -1,19 +1,18 @@
 package com.example.srawa.mvpkotlin.ui.employee
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import com.example.srawa.mvpkotlin.R
 import com.example.srawa.mvpkotlin.adapters.EmployeeListAdapter
 import com.example.srawa.mvpkotlin.database.AppDatabase
+import com.example.srawa.mvpkotlin.ui.base.BaseFragment
 import com.example.srawa.mvpkotlin.util.DatabaseBuilder
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 
-class EmployeeListFragment : android.support.v4.app.Fragment(), EmployeeListView {
+class EmployeeListFragment : BaseFragment(), EmployeeListView {
 
     private lateinit var presenter: EmployeeListPresenter
 
@@ -44,10 +43,6 @@ class EmployeeListFragment : android.support.v4.app.Fragment(), EmployeeListView
             val searchName = product_name_search_term.text.toString()
             presenter.searchEmployeesByName(mDatabase, searchName)
         }
-    }
-
-    fun hideSoftKeyboard() {
-        (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
     override fun showProgress() {

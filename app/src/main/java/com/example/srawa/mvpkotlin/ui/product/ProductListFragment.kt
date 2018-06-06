@@ -1,21 +1,19 @@
 package com.example.srawa.mvpkotlin.ui.product
 
-import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import com.example.srawa.mvpkotlin.R
 import com.example.srawa.mvpkotlin.adapters.ProductListAdapter
 import com.example.srawa.mvpkotlin.database.AppDatabase
 import com.example.srawa.mvpkotlin.database.product.Product
+import com.example.srawa.mvpkotlin.ui.base.BaseFragment
 import com.example.srawa.mvpkotlin.util.DatabaseBuilder
 import kotlinx.android.synthetic.main.fragment_product_list.*
 
-class ProductListFragment : Fragment(), ProductListView {
+class ProductListFragment : BaseFragment(), ProductListView {
 
     private lateinit var mDatabase: AppDatabase
     private lateinit var productListAdapter: ProductListAdapter
@@ -43,10 +41,6 @@ class ProductListFragment : Fragment(), ProductListView {
             val searchTerm = product_name_search_term.text.toString()
             presenter.searchProductByName(mDatabase, searchTerm)
         }
-    }
-
-    fun hideSoftKeyboard() {
-        (activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
     override fun showProgress() {
