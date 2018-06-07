@@ -2,7 +2,6 @@ package com.example.srawa.mvpkotlin.ui.department
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,8 @@ import com.example.srawa.mvpkotlin.adapters.DepartmentListAdapter
 import com.example.srawa.mvpkotlin.database.AppDatabase
 import com.example.srawa.mvpkotlin.database.department.Department
 import com.example.srawa.mvpkotlin.ui.base.BaseFragment
+import com.example.srawa.mvpkotlin.ui.departmentdetail.DepartmentDetailFragment
+import com.example.srawa.mvpkotlin.ui.departmentdetail.DepartmentDetailView
 import com.example.srawa.mvpkotlin.util.DatabaseBuilder
 import kotlinx.android.synthetic.main.fragment_department_list.*
 
@@ -41,7 +42,15 @@ class DepartmentListFragment : BaseFragment(), DepartmentListView {
         presenter.loadAllDepartments(mDatabase)
         departmentListAdapter.setOnClickListener(object : DepartmentListAdapter.ClickListener {
             override fun onClick(deptId: Long) {
-                Log.d("xyz", "dept with id $deptId clicked")
+                fragmentManager?.beginTransaction()?.apply {
+                    val departmentDetailFragment = DepartmentDetailFragment()
+                    departmentDetailFragment.arguments = Bundle().apply {
+                        putLong(DepartmentDetailView.DEPT_ID, deptId)
+                    }
+                    replace(R.id.frame_layout, departmentDetailFragment)
+                    addToBackStack(null)
+                    commit()
+                }
             }
         })
     }

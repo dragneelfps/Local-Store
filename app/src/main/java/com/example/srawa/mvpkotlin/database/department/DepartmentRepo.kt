@@ -14,4 +14,6 @@ interface DepartmentRepo {
 
     fun getDepartmentDetails(deptId: Long): Observable<DepartmentDetail>
 
+    fun getDepartment(deptId: Long): Observable<Department?>
+
 }

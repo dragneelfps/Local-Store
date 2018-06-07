@@ -42,4 +42,11 @@ class DepartmentRepoImpl(private val departmentDao: DepartmentDao): DepartmentRe
             //Not emitting anything right now
             emitter.onComplete()
         }
+
+    override fun getDepartment(deptId: Long): Observable<Department?> =
+            Observable.create { emitter ->
+                val depts = departmentDao.getDepartmentById(deptId)
+                if (depts.isNotEmpty()) emitter.onNext(depts[0])
+                emitter.onComplete()
+            }
 }
