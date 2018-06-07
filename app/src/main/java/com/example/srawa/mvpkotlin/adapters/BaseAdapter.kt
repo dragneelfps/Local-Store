@@ -10,4 +10,5 @@ abstract class BaseAdapter<T, V : RecyclerView.ViewHolder?> : RecyclerView.Adapt
             notifyDataSetChanged()
         }
 
+    override fun getItemCount() = values.size
 }

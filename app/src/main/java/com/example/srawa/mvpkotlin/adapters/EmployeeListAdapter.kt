@@ -17,8 +17,6 @@ class EmployeeListAdapter : BaseAdapter<EmployeeListView.EmployeeDetail, Employe
         val dateOfJoiningTextView = itemView.date_of_joining
     }
 
-    override fun getItemCount() = values.size
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_layout_employee, parent, false))
 

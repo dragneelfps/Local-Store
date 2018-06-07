@@ -18,8 +18,6 @@ class ProductListAdapter : BaseAdapter<Product, ProductListAdapter.ViewHolder>()
         var productQuantityTextView: TextView = itemView.product_quantity
     }
 
-    override fun getItemCount() = values.size
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_layout_product, parent, false))
     }
