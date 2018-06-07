@@ -16,6 +16,12 @@ class DepartmentListAdapter : BaseAdapter<Department, DepartmentListAdapter.View
         var departmentIdTextView: TextView = itemView.dept_id
     }
 
+    private var onClickListener: ClickListener? = null
+
+    fun setOnClickListener(listener: ClickListener?) {
+        onClickListener = listener
+    }
+
     override fun getItemCount() = values.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +33,18 @@ class DepartmentListAdapter : BaseAdapter<Department, DepartmentListAdapter.View
         holder.run {
             departmentNameTextView.text = department.name
             departmentIdTextView.text = department.id.toString()
+            itemView.setOnClickListener {
+                onClickListener?.onClick(department.id)
+            }
         }
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        super.onViewRecycled(holder)
+        holder.itemView.setOnClickListener(null)
+    }
+
+    interface ClickListener {
+        fun onClick(deptId: Long)
     }
 }

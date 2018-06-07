@@ -2,6 +2,7 @@ package com.example.srawa.mvpkotlin.ui.department
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,6 @@ class DepartmentListFragment : BaseFragment(), DepartmentListView {
             mDatabase = DatabaseBuilder.getDatabase(activity.applicationContext)
             init()
         }
-
     }
 
     fun init() {
@@ -39,6 +39,21 @@ class DepartmentListFragment : BaseFragment(), DepartmentListView {
         department_list.layoutManager = LinearLayoutManager(activity)
         department_list.adapter = departmentListAdapter
         presenter.loadAllDepartments(mDatabase)
+        departmentListAdapter.setOnClickListener(object : DepartmentListAdapter.ClickListener {
+            override fun onClick(deptId: Long) {
+                Log.d("xyz", "dept with id $deptId clicked")
+            }
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        departmentListAdapter.setOnClickListener(null)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mDatabase.close()
     }
 
 
