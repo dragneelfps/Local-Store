@@ -9,9 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 class EmployeeListPresenterImp(var mainView: EmployeeListView) : EmployeeListPresenter {
 
-    override fun loadAllEmployeesWithDeptId(database: AppDatabase, deptId: Long) {
-        Log.d("xyz", "Got employees deptId = $deptId ")
-
+    override fun loadAll(database: AppDatabase, deptId: Long) {
         mainView.clearItems()
         mainView.showProgress()
         val employeeRepo: EmployeeRepo = EmployeeRepoImpl(database.employeeDao())

@@ -1,9 +1,5 @@
 package com.example.srawa.mvpkotlin.ui.departmentdetail.employee
 
-import com.example.srawa.mvpkotlin.database.AppDatabase
+import com.example.srawa.mvpkotlin.ui.departmentdetail.base.ItemsListPresenter
 
-interface EmployeeListPresenter {
-
-    fun loadAllEmployeesWithDeptId(database: AppDatabase, deptId: Long)
-
-}
+interface EmployeeListPresenter : ItemsListPresenter

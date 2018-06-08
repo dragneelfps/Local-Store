@@ -1,7 +1,6 @@
 package com.example.srawa.mvpkotlin.adapters
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ class DepartmentEmployeeListAdapter : BaseAdapter<Employee, DepartmentEmployeeLi
     override fun getItemCount() = values.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d("xyz", "HERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRE")
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_layout_department_employee, parent, false))
     }
 
