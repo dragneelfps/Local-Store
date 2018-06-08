@@ -10,6 +10,7 @@ import com.example.srawa.mvpkotlin.ui.employee.EmployeeListFragment
 import com.example.srawa.mvpkotlin.ui.product.ProductListFragment
 import com.example.srawa.mvpkotlin.util.DatabaseBuilder
 import com.example.srawa.mvpkotlin.util.PerferenceHelper
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,10 +22,29 @@ class MainActivity : AppCompatActivity() {
 
         if (PerferenceHelper.isDbInitialized(applicationContext)) {
             Log.d("xyz", "DB IS ALREADY INITIALIZED")
+            init()
         } else {
             Log.d("xyz", "INITIALIZING DB")
             DatabaseBuilder.populateDatabase(applicationContext, database)
             PerferenceHelper.dbInit(applicationContext)
+            init()
+        }
+    }
+
+    fun init() {
+        nav_view.setNavigationItemSelectedListener { item ->
+            item.isChecked = true
+            drawer_layout.closeDrawers()
+
+            when (item.itemId) {
+                R.id.employee_search_item ->
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, EmployeeListFragment()).commit()
+                R.id.product_search_item ->
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, ProductListFragment()).commit()
+                R.id.departments_list_item ->
+                    supportFragmentManager.beginTransaction().replace(R.id.frame_layout, DepartmentListFragment()).commit()
+            }
+            true
         }
     }
 
