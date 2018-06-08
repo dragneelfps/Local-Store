@@ -8,16 +8,19 @@ import io.reactivex.schedulers.Schedulers
 class ProductListPresenterImp(var mainView: ProductListView) : ProductListPresenter {
 
     override fun loadAll(database: AppDatabase, deptId: Long) {
-        mainView.clearItems()
-        mainView.showProgress()
+        if (mainView.getRootView() != null) {
+            mainView.clearItems()
+            mainView.showProgress()
 
-        val repo = ProductRepoImpl(database.productDao())
-        repo.getProductsByDeptId(deptId)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    mainView.setItems(items = it)
-                    mainView.hideProgress()
-                }
-
+            val repo = ProductRepoImpl(database.productDao())
+            repo.getProductsByDeptId(deptId)
+                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (mainView.getRootView() != null) {
+                            mainView.setItems(items = it)
+                            mainView.hideProgress()
+                        }
+                    }
+        }
     }
 }

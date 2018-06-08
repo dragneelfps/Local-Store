@@ -1,7 +1,6 @@
 package com.example.srawa.mvpkotlin.ui.departmentdetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,9 +32,8 @@ class DepartmentDetailFragment : BaseFragment(), DepartmentDetailView {
 
     fun init() {
         deptId = arguments?.getLong(DepartmentDetailView.DEPT_ID, -1) ?: -1
-        Log.d("xyz", "GOT Dept ID : $deptId")
         presenter = DepartmentDetailPresenterImp(this)
-        viewPagerAdapter = ViewPagerAdapter(fragmentManager!!, deptId)
+        viewPagerAdapter = ViewPagerAdapter(childFragmentManager, deptId)
         view_pager.adapter = viewPagerAdapter
         tabs.setupWithViewPager(view_pager)
     }
@@ -43,6 +41,8 @@ class DepartmentDetailFragment : BaseFragment(), DepartmentDetailView {
     fun loadData() {
         presenter.loadDepartmentDetail(mDatabase, deptId)
     }
+
+    override fun getRootView() = view
 
     override fun setDepartmentDetails(department: DepartmentDetailView.DepartmentDetail) {
         department.let {

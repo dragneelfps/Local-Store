@@ -9,14 +9,18 @@ import io.reactivex.schedulers.Schedulers
 class ProductListPresenterImpl(var productListView: ProductListView) : ProductListPresenter {
 
     override fun searchProductByName(database: AppDatabase, name: String) {
-        productListView.clearItems()
-        productListView.showProgress()
+        if (productListView.getRootView() != null) {
+            productListView.clearItems()
+            productListView.showProgress()
 
-        val productRepo: ProductRepo = ProductRepoImpl(database.productDao())
-        productRepo.getProductsByName(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    productListView.setItems(items = it)
-                    productListView.hideProgress()
-                }
+            val productRepo: ProductRepo = ProductRepoImpl(database.productDao())
+            productRepo.getProductsByName(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (productListView.getRootView() != null) {
+                            productListView.setItems(items = it)
+                            productListView.hideProgress()
+                        }
+                    }
+        }
     }
 }

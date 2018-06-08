@@ -65,6 +65,7 @@ class DepartmentListFragment : BaseFragment(), DepartmentListView {
         mDatabase.close()
     }
 
+    override fun getRootView() = view
 
     override fun showProgress() {
         progressBar.visibility = View.VISIBLE

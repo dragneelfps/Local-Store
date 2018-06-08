@@ -9,14 +9,18 @@ import io.reactivex.schedulers.Schedulers
 class DepartmentPresenterImp(var departmentListView: DepartmentListView) : DepartmentPresenter {
 
     override fun loadAllDepartments(database: AppDatabase) {
-        departmentListView.clearItems()
-        departmentListView.showProgress()
+        if (departmentListView.getRootView() != null) {
+            departmentListView.clearItems()
+            departmentListView.showProgress()
 
-        val departmentRepo: DepartmentRepo = DepartmentRepoImpl(database.departmentDao())
-        departmentRepo.getAllDepartments().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    departmentListView.setItems(items = it)
-                    departmentListView.hideProgress()
-                }
+            val departmentRepo: DepartmentRepo = DepartmentRepoImpl(database.departmentDao())
+            departmentRepo.getAllDepartments().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (departmentListView.getRootView() != null) {
+                            departmentListView.setItems(items = it)
+                            departmentListView.hideProgress()
+                        }
+                    }
+        }
     }
 }

@@ -30,6 +30,7 @@ class EmployeeListFragment : BaseFragment(), EmployeeListView {
         activity?.let { activity ->
             mDatabase = DatabaseBuilder.getDatabase(activity.applicationContext)
             init()
+            loadInitData()
         }
     }
 
@@ -44,6 +45,12 @@ class EmployeeListFragment : BaseFragment(), EmployeeListView {
             presenter.searchEmployeesByName(mDatabase, searchName)
         }
     }
+
+    fun loadInitData() {
+        presenter.searchEmployeesByName(mDatabase, "")
+    }
+
+    override fun getRootView() = view
 
     override fun showProgress() {
         progressBar.visibility = View.VISIBLE

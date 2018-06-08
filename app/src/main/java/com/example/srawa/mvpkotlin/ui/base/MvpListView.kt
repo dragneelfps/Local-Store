@@ -1,6 +1,6 @@
 package com.example.srawa.mvpkotlin.ui.base
 
-interface MvpListView<T> {
+interface MvpListView<T> : BaseMvpView {
 
     fun showProgress()
 

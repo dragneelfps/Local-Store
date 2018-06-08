@@ -29,6 +29,6 @@ class ViewPagerAdapter(fm: FragmentManager, private var deptId: Long) : Fragment
     override fun getPageTitle(position: Int) =
             when (position) {
                 0 -> "Employees"
-                else -> "Products(TODO)"
+                else -> "Products"
             }
 }

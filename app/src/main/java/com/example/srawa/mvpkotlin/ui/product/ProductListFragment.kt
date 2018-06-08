@@ -28,6 +28,7 @@ class ProductListFragment : BaseFragment(), ProductListView {
         activity?.let {
             mDatabase = DatabaseBuilder.getDatabase(it.applicationContext)
             init()
+            loadInitData()
         }
     }
 
@@ -42,6 +43,12 @@ class ProductListFragment : BaseFragment(), ProductListView {
             presenter.searchProductByName(mDatabase, searchTerm)
         }
     }
+
+    fun loadInitData() {
+        presenter.searchProductByName(mDatabase, "")
+    }
+
+    override fun getRootView() = view
 
     override fun showProgress() {
         progressBar.visibility = View.VISIBLE
@@ -69,6 +76,7 @@ class ProductListFragment : BaseFragment(), ProductListView {
     }
 
     override fun clearItems() {
+        displayMessage("")
         productListAdapter.values = emptyList()
     }
 }

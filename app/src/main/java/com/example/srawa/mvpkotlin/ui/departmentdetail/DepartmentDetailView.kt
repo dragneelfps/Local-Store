@@ -1,8 +1,9 @@
 package com.example.srawa.mvpkotlin.ui.departmentdetail
 
 import com.example.srawa.mvpkotlin.database.department.Department
+import com.example.srawa.mvpkotlin.ui.base.BaseMvpView
 
-interface DepartmentDetailView {
+interface DepartmentDetailView : BaseMvpView {
 
     var deptId: Long
 

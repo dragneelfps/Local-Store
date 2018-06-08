@@ -12,29 +12,33 @@ class EmployeeListPresenterImpl(
 
 
     override fun searchEmployeesByName(database: AppDatabase, name: String) {
-        mainView.clearItems()
-        mainView.showProgress()
+        if (mainView.getRootView() != null) {
+            mainView.clearItems()
+            mainView.showProgress()
 
-        val employeeRepo: EmployeeRepo = EmployeeRepoImpl(database.employeeDao())
+            val employeeRepo: EmployeeRepo = EmployeeRepoImpl(database.employeeDao())
 
-        employeeRepo.getEmployeesByName(name).map {
-            val empDetails = ArrayList<EmployeeListView.EmployeeDetail>()
-            it.forEach { emp ->
-                val deptId = emp.deptID
-                val empDetail = EmployeeListView.EmployeeDetail(emp)
-                val depts = database.departmentDao().getDepartmentById(deptId)
-                if (depts.isEmpty()) {
-                    empDetail.deptName = "INVALID"
-                } else {
-                    empDetail.deptName = depts[0].name
+            employeeRepo.getEmployeesByName(name).map {
+                val empDetails = ArrayList<EmployeeListView.EmployeeDetail>()
+                it.forEach { emp ->
+                    val deptId = emp.deptID
+                    val empDetail = EmployeeListView.EmployeeDetail(emp)
+                    val depts = database.departmentDao().getDepartmentById(deptId)
+                    if (depts.isEmpty()) {
+                        empDetail.deptName = "INVALID"
+                    } else {
+                        empDetail.deptName = depts[0].name
+                    }
+                    empDetails.add(empDetail)
                 }
-                empDetails.add(empDetail)
-            }
-            empDetails
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    mainView.setItems(items = it)
-                    mainView.hideProgress()
-                }
+                empDetails
+            }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (mainView.getRootView() != null) {
+                            mainView.setItems(items = it)
+                            mainView.hideProgress()
+                        }
+                    }
+        }
     }
 }

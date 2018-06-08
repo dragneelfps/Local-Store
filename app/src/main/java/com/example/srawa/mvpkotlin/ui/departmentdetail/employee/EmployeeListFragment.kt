@@ -46,6 +46,8 @@ class EmployeeListFragment : BaseFragment(), EmployeeListView {
         presenter.loadAll(mDatabase, deptId)
     }
 
+    override fun getRootView() = view
+
     override fun showProgress() {
         progressBar.visibility = View.VISIBLE
     }
